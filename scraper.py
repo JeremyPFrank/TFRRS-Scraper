@@ -114,3 +114,63 @@ for athlete in display:
    athlete.append("AVG Rank: " + str(avg_rank))
    avg_rank+=1
    print(athlete)
+
+graphit = False;#change to true if you want graphs of all athlete results
+if (graphit):
+    for athlete in athlete_database:
+        plt.plot(athlete[2::])
+        plt.show()
+###Team Vs. Team Scoring Based on PR's### 1st Place: 5pts, 2nd Place: 3pts, 3rd Place: 1pt
+team1 = "UC_Irvine" #Enter Team 1 (Replace Spaces with "_")
+team2 = "UC_Santa_Barbara" #Enter Team 2 (Replace Spaces with "_")
+Head2Head = []
+for athlete in display:
+    temp_athlete = []
+    if (athlete[1] == team1 or athlete[1] == team2):#if athlete is from a competing team
+        temp_athlete.append(athlete[1])
+        temp_athlete.append(athlete[-4])
+        temp_athlete.append(athlete[-5])
+    if (temp_athlete != []):#if temp_athlete was modified, add to head2head
+        Head2Head.append(temp_athlete)
+
+sort_temp = []#bubble sort
+rng = len(Head2Head) #bubble sort to place list in order from lowest time to Highest time
+for i in range(rng):
+    for j in range(rng-i-1):
+        if Head2Head[j][1] > Head2Head[j+1][1]:
+            Head2Head[j],Head2Head[j+1]=Head2Head[j+1],Head2Head[j]
+team1_score = 0.0
+team2_score = 0.0
+
+for i in range(3):
+    if (len(Head2Head)>i):
+        if len(Head2Head) >= (i+1) and float(Head2Head[i+1][1][-5:]) == float(Head2Head[i][1][-5:]):
+           if i==2:
+               team1_score+=0.5
+               team2_score+=0.5
+               break
+           elif i==1:
+               team1_score+=2
+               team2_score+=2
+               break
+           elif i == 0:
+               team1_score+=4
+               team2_score+=4
+               i+=1
+               pass
+        elif Head2Head[i][0] == team1:
+           if i==2:
+               team1_score+=1
+           elif i==1:
+               team1_score+=3
+           elif i == 0:
+               team1_score+=5
+        elif Head2Head[i][0] == team2:
+           if i==2:
+               team2_score+=1
+           elif i==1:
+               team2_score+=3
+           elif i == 0:
+               team2_score+=5 
+print(team1_score)
+print(team2_score)
