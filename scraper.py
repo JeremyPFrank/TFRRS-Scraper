@@ -172,5 +172,6 @@ for i in range(3):
                team2_score+=3
            elif i == 0:
                team2_score+=5 
-print(team1_score)
-print(team2_score)
+print(team1 + " VS " + team2 + " Dual Meet Scoring")
+print(team1 + ": " + str(team1_score) + " Points")
+print(team2 + ": " + str(team2_score) + " Points")
